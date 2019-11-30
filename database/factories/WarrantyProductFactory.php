@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 use App\Product;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 $factory->define(WarrantyProduct::class, function (Faker $faker) {
 
@@ -17,7 +18,7 @@ $factory->define(WarrantyProduct::class, function (Faker $faker) {
     return [
         'product_id' => Product::all()->random()->id,
         'user_id' => User::all()->random()->id,
-        'alphabetic_code' => $faker->unique()->numberBetween(1000000,9999999),
+        'alphabetic_code' => $faker->regexify('[A-Za-z]{7}'),
         'warranty_start_date' => $start_date,
         'warranty_end_date' => $end_date,
     ];

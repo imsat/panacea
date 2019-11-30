@@ -9,9 +9,6 @@
 
     <title>{{ config('app.name', 'Panacea') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('/')}}plugins/fontawesome-free/css/all.min.css">
 
@@ -53,7 +50,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('category.index')}}">{{ __('Categories') }} </a>
+                                <a class="dropdown-item" href="{{route('categories.index')}}">{{ __('Categories') }} </a>
                                 <a class="dropdown-item" href="{{route('products.index')}}">{{ __('Products') }} </a>
                             </div>
                         </li>
@@ -67,6 +64,7 @@
         </main>
     </div>
 
-    <script src="{{asset('js/vue.js')}}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </body>
 </html>

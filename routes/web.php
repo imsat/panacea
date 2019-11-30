@@ -18,8 +18,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('/category-product{category}', 'CategoryController@categoryProduct')->name('category.products');
-Route::resource('/category', 'CategoryController');
+Route::get('/categories-products/{category}', 'CategoryController@categoryProduct')->name('categories.products');
+Route::resource('/categories', 'CategoryController');
 
 Route::resource('/products', 'ProductController');
 
