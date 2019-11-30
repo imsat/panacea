@@ -40,4 +40,26 @@ class WarrantyProduct extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Return formatted Warranty End Date
+     *
+     * @param $date
+     * @return mixed
+     */
+    public function getWarrantyStartDateAttribute($date)
+    {
+        return date('d-m-Y', strtotime($date));
+    }
+
+    /**
+     * Return formatted Warranty Start Date
+     *
+     * @param $date
+     * @return mixed
+     */
+    public function getWarrantyEndDateAttribute($date)
+    {
+        return date('d-m-Y', strtotime($date));
+    }
 }

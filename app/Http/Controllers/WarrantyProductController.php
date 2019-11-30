@@ -15,12 +15,27 @@ class WarrantyProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::latest()->get();
-        $warrantyProducts = WarrantyProduct::with('product')->latest()->paginate();
+        $query = WarrantyProduct::with('product')->latest();
 
-        return view('admin', compact('categories', 'warrantyProducts'));
+        if ($request->ajax()) {
+            $searchValue = $request->input('search');
+
+            if ($searchValue) {
+                $query->where(function ($query) use ($searchValue) {
+                    $query->where('alphabetic_code', 'like', '%' . $searchValue . '%');
+                });
+            }
+
+            $warrantyProducts = $query->paginate();
+            return ['data' => $warrantyProducts, 'draw' => $request->input('draw')];
+        }
+
+
+        $warrantyProducts = $query->paginate(10);
+
+        return view('admin', compact('warrantyProducts'));
     }
 
     /**
@@ -36,7 +51,7 @@ class WarrantyProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,11 +65,11 @@ class WarrantyProductController extends Controller
             'product_id.required' => 'Product field required',
             'alphabetic_code.required' => 'Unique code field required',
         ]);
+
         $product = Product::findOrFail($request->product_id);
 
-        $warrantyProduct =  WarrantyProduct::create([
+        $warrantyProduct = WarrantyProduct::create([
             'product_id' => $request->product_id,
-//            'user_id' => auth()->user()->id,
             'user_id' => 1, // hard code this for test purpose
             'alphabetic_code' => $request->alphabetic_code,
             'warranty_start_date' => now(),
@@ -67,7 +82,7 @@ class WarrantyProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\WarrantyProduct  $warrantyProduct
+     * @param  \App\WarrantyProduct $warrantyProduct
      * @return \Illuminate\Http\Response
      */
     public function show(WarrantyProduct $warrantyProduct)
@@ -78,7 +93,7 @@ class WarrantyProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\WarrantyProduct  $warrantyProduct
+     * @param  \App\WarrantyProduct $warrantyProduct
      * @return \Illuminate\Http\Response
      */
     public function edit(WarrantyProduct $warrantyProduct)
@@ -89,8 +104,8 @@ class WarrantyProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\WarrantyProduct  $warrantyProduct
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\WarrantyProduct $warrantyProduct
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, WarrantyProduct $warrantyProduct)
@@ -101,7 +116,7 @@ class WarrantyProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\WarrantyProduct  $warrantyProduct
+     * @param  \App\WarrantyProduct $warrantyProduct
      * @return \Illuminate\Http\Response
      */
     public function destroy(WarrantyProduct $warrantyProduct)

@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('add_warranty_product_modal', require('./components/AddWarrantyProductModal.vue').default);
+Vue.component('customer_product_search', require('./components/CustomerProductSearch.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

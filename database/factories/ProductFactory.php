@@ -14,6 +14,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'product_slug' => Str::slug($name),
         'category_id' => Category::all()->random()->id,
         'product_description' => $faker->sentence,
-        'product_warranty' => $faker->month,
+        'product_warranty' => $faker->numberBetween(5,36),
+//        'product_warranty' => $faker->month,
     ];
 });
