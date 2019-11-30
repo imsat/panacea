@@ -47,6 +47,16 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/customer')}}">{{ __('Customer') }}</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                More
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('category.index')}}">{{ __('Categories') }} </a>
+                                <a class="dropdown-item" href="{{route('products.index')}}">{{ __('Products') }} </a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -56,5 +66,7 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="{{asset('js/vue.js')}}"></script>
 </body>
 </html>

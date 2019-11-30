@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use App\Category;
 
 $factory->define(Product::class, function (Faker $faker) {
-    $name = $faker->sentence(3);
+    $name = $faker->sentence(2);
     return [
         'product_name' => $name,
         'product_slug' => Str::slug($name),

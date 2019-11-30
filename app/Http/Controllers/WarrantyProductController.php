@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\WarrantyProduct;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,12 @@ class WarrantyProductController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::latest()->get();
+        $warrantyProducts = WarrantyProduct::with('product')->latest()->paginate();
+
+//        dd($warrantyProducts);
+
+        return view('admin', compact('categories', 'warrantyProducts'));
     }
 
     /**

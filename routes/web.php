@@ -11,16 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('admin');
-});
 
-Route::get('/customer', function () {
-    return view('/customer');
-});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 
+Route::get('/category-product{category}', 'CategoryController@categoryProduct')->name('category.products');
+Route::resource('/category', 'CategoryController');
+
+Route::resource('/products', 'ProductController');
+
+Route::get('/', 'WarrantyProductController@index');
+Route::resource('/warranty-products', 'WarrantyProductController');
+
+Route::get('/customer', function () {
+    return view('/customer');
+});

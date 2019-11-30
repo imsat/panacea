@@ -25,7 +25,7 @@ class WarrantyProduct extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function products()
+    public function product()
     {
         return $this->belongsTo('App\Product');
     }

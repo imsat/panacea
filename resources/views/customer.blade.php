@@ -6,15 +6,13 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Customer</div>
-
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Search your product</label>
+                                <input class="form-control form-control-lg" type="text" placeholder="Enter your code...">
                             </div>
-                        @endif
-
-                        You are logged in as Customer!
+                        </form>
                     </div>
                 </div>
             </div>
