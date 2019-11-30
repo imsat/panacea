@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Product;
 use App\WarrantyProduct;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class WarrantyProductController extends Controller
@@ -17,8 +19,6 @@ class WarrantyProductController extends Controller
     {
         $categories = Category::latest()->get();
         $warrantyProducts = WarrantyProduct::with('product')->latest()->paginate();
-
-//        dd($warrantyProducts);
 
         return view('admin', compact('categories', 'warrantyProducts'));
     }
@@ -41,7 +41,27 @@ class WarrantyProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'product_id' => 'required',
+            'alphabetic_code' => 'required|max:7|min:7|unique:warranty_products|regex:/(^[A-Za-z]+$)+/',
+        ],
+        [
+            'product_id.required' => 'Product field required',
+            'alphabetic_code.required' => 'Unique code field required',
+        ]);
+        $product = Product::findOrFail($request->product_id);
+
+        $warrantyProduct =  WarrantyProduct::create([
+            'product_id' => $request->product_id,
+//            'user_id' => auth()->user()->id,
+            'user_id' => 1, // hard code this for test purpose
+            'alphabetic_code' => $request->alphabetic_code,
+            'warranty_start_date' => now(),
+            'warranty_end_date' => Carbon::createFromFormat('Y-m-d H:i:s', now())->addMonth($product->product_warranty),
+        ]);
+
+        return $warrantyProduct;
     }
 
     /**
