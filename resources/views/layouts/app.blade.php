@@ -52,6 +52,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('categories.index')}}">{{ __('Categories') }} </a>
                                 <a class="dropdown-item" href="{{route('products.index')}}">{{ __('Products') }} </a>
+                                <a class="dropdown-item" href="{{route('db.design')}}">{{ __('Database Design') }} </a>
                             </div>
                         </li>
                     </ul>

@@ -29,3 +29,8 @@ Route::resource('/warranty-products', 'WarrantyProductController');
 Route::get('/customer', function () {
     return view('/customer');
 });
+
+//Extra preview db design
+Route::get('/db-design', function () {
+    return view('db-design');
+})->name('db.design');
